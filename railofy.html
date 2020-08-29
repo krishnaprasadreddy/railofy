@@ -1,0 +1,57 @@
+<html>
+<h1> coding test</h1>
+<script>
+    function curry(arr) { // -> 21
+        let formula = [],
+            noLuck = "No Luck";
+        // checking the length if it is less that 3 we can'thave a formula
+        if (arr.length < 3) {
+            //  console.log("no luck");
+            return noLuck;
+        }
+        // sorting array
+        arr = arr.sort((a, b) => b - a);
+        // console.log(arr);
+        // calculating the total sum if it is not a multiple of 3 we can't have a formula
+        let sum = arr.reduce((acc, val) => acc + val);
+        //   console.log(sum);
+        if (sum % 3 !== 0) {
+            //  console.log("no luck");
+            return "no luck"
+        }
+        let idealVal = sum / 3;
+        let pCount = 0,
+            qCount = 0,
+            rCount = 0;
+        arr.forEach((element, i) => {
+            if (pCount < idealVal && pCount + element <= idealVal) {
+                pCount += element;
+                formula[i] = 'P'
+            } else if (qCount < idealVal && qCount + element <= idealVal) {
+                qCount += element;
+                formula[i] = 'Q'
+            } else if (rCount < idealVal && rCount + element <= idealVal) {
+                rCount += element;
+                formula[i] = 'R'
+            }
+        });
+        //  console.log(`${pCount} - ${idealVal}`);
+        //console.log(`${qCount} - ${rCount}`);
+        if (pCount === qCount && qCount === rCount)
+            return formula.join('');
+        else
+            return "No Luck"
+
+    }
+    let input = [3, 7, 2, 5, 4];
+    let test1 = [1, 2, 3, 2, 1],
+        test2 = [1, 2, 3],
+        test4 = [1, 2];
+
+    console.log("test 1", curry(input));
+    console.log("test 2", curry(test1));
+    console.log("test 3", curry(test2));
+    console.log("test 4", curry(test4));
+</script>
+
+</html>
